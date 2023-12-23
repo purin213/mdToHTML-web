@@ -17,7 +17,7 @@ $Parsedown = new Parsedown();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
         <div id="editor-container" class="m-4 w-50" style="height:80vh;border:1px solid grey"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
-        <script src="js/init.js"></script>
+        <script src="js/app.js"></script>
         <div id="converted-container" class="m-4 w-50 overflow-auto" style="height:80vh;border:1px solid grey">
         <?php
             echo $Parsedown->text("# Markdown Cheat Sheet\n" .
