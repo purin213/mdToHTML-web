@@ -12,6 +12,7 @@ $Parsedown = new Parsedown();
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
+    <button id="render" type="button" class="btn btn-dark m-4">RENDER</button>
     <div class="d-flex justify-content-center align-content-center m-3">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
         <div id="editor-container" class="m-4 w-50" style="height:80vh;border:1px solid grey"></div>

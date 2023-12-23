@@ -97,3 +97,27 @@ require(['vs/editor/editor.main'], function() {
         language: 'markdown'
     });
 });
+
+// FIX ME
+// Context: Does not support line breaks
+function fetchParser() {
+    fetch("/parser.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(window.editor.getValue()),
+    })
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("converted-container").innerHTML = data;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+const renderButton = document.getElementById("render");
+
+renderButton.addEventListener("click", function() {
+    return fetchParser()
+});
