@@ -98,15 +98,14 @@ require(['vs/editor/editor.main'], function() {
     });
 });
 
-// FIX ME
-// Context: Does not support line breaks
+// UNTESTED
 function fetchParser() {
     fetch("/parser.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(window.editor.getValue()),
+        body: JSON.stringify(window.editor.getValue().replace("\n", "\r\n")),
     })
     .then(response => response.text())
     .then(data => {
