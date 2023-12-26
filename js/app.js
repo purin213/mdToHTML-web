@@ -98,7 +98,6 @@ require(['vs/editor/editor.main'], function() {
     });
 });
 
-// UNTESTED
 function fetchParser() {
     fetch("/parser.php", {
         method: "POST",
@@ -115,8 +114,24 @@ function fetchParser() {
         console.error(error);
     });
 }
+
 const renderButton = document.getElementById("render");
+const downloadButton = document.getElementById("download");
+const convertedContent = document.getElementById("converted-container");
 
 renderButton.addEventListener("click", function() {
     return fetchParser()
+});
+
+downloadButton.addEventListener("click", function(){
+    //#4 FIX ME
+    const blob = new Blob([convertedContent.innerHTML], {type: "text/html"});
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "renderedContent.html";
+    link.click;
+
+    URL.revokeObjectURL(url);
 });

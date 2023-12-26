@@ -12,13 +12,21 @@ $Parsedown = new Parsedown();
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
+
     <button id="render" type="button" class="btn btn-dark m-4">RENDER</button>
+    <button id="download" type="button" class="btn btn-primary m-4">DOWNLOAD</button>
+
     <div class="d-flex justify-content-center align-content-center m-3">
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
+
         <div id="editor-container" class="m-4 w-50" style="height:80vh;border:1px solid grey"></div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
         <script src="js/app.js"></script>
+
         <div id="converted-container" class="m-4 w-50 overflow-auto" style="height:80vh;border:1px solid grey">
+
         <?php
             echo $Parsedown->text("# Markdown Cheat Sheet\n" .
             "Thanks for visiting [The Markdown Guide](https://www.markdownguide.org)!\n" .
@@ -113,6 +121,7 @@ $Parsedown = new Parsedown();
             "### Superscript\n" .
             "X^2^")
         ;?>
+
 </div>
     </div>
 </body>
