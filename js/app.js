@@ -119,11 +119,11 @@ const renderButton = document.getElementById("render");
 const downloadButton = document.getElementById("download");
 const convertedContent = document.getElementById("converted-container");
 
-renderButton.addEventListener("click", function() {
+renderButton.addEventListener("click", () => {
     return fetchParser()
 });
 
-downloadButton.addEventListener("click", function(){
+downloadButton.addEventListener("click", () => {
     //#4 FIX ME
     const blob = new Blob([convertedContent.innerHTML], {type: "text/html"});
     const url = URL.createObjectURL(blob);
