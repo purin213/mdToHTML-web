@@ -98,7 +98,7 @@ require(['vs/editor/editor.main'], function() {
     });
 });
 
-function fetchParser() {
+function fetchParser(arg) {
     fetch("/parser.php", {
         method: "POST",
         headers: {
@@ -108,7 +108,16 @@ function fetchParser() {
     })
     .then(response => response.text())
     .then(data => {
-        document.getElementById("converted-container").innerHTML = data;
+        if(arg == "render"){
+            document.getElementById("converted-container").innerHTML = data;
+        } else if(arg == "download"){
+            const blob = new Blob(
+                [document.getElementById("converted-container").innerHTML],
+                {type: "text/html"}
+            );
+            const url = URL.createObjectURL(blob);
+            return url;
+        }
     })
     .catch(error => {
         console.error(error);
@@ -117,17 +126,14 @@ function fetchParser() {
 
 const renderButton = document.getElementById("render");
 const downloadButton = document.getElementById("download");
-const convertedContent = document.getElementById("converted-container");
 
 renderButton.addEventListener("click", () => {
-    return fetchParser()
+    return fetchParser("render");
 });
 
 downloadButton.addEventListener("click", () => {
     //#4 FIX ME
-    const blob = new Blob([convertedContent.innerHTML], {type: "text/html"});
-    const url = URL.createObjectURL(blob);
-
+    const url = fetchParser("download");
     const link = document.createElement("a");
     link.href = url;
     link.download = "renderedContent.html";
