@@ -125,10 +125,7 @@ function escapeHTML(unsafe){
          .replace(/'/g, "&#039;");
  }
 
-const renderButton = document.getElementById("render");
-const downloadButton = document.getElementById("download");
-
-renderButton.addEventListener("click", () => {
+function render(){
     fetchParser()
     .then((data) => {
         const containerElement = document.getElementById("converted-container");
@@ -144,13 +141,13 @@ renderButton.addEventListener("click", () => {
             containerElement.innerHTML = data;
         }
     });
-});
+};
 
-downloadButton.addEventListener("click", () => {
+function download(){
     //#4 FIX ME
     const url = fetchParser("download");
     const link = document.createElement("a");
     link.href = url;
     link.download = "renderedContent.html";
     link.click;
-});
+};
