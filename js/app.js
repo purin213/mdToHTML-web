@@ -98,37 +98,52 @@ require(['vs/editor/editor.main'], function() {
     });
 });
 
-function fetchParser(arg) {
-    fetch("/parser.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(window.editor.getValue().replace("\n", "\r\n")),
-    })
-    .then(response => response.text())
-    .then(data => {
-        if(arg == "render"){
-            document.getElementById("converted-container").innerHTML = data;
-        } else if(arg == "download"){
-            const blob = new Blob(
-                [document.getElementById("converted-container").innerHTML],
-                {type: "text/html"}
-            );
-            const url = URL.createObjectURL(blob);
-            return url;
+async function fetchParser(){
+    try{
+        const response = await fetch("/parser.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(window.editor.getValue().replace("\n", "\r\n")),
+        });
+        if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
         }
-    })
-    .catch(error => {
-        console.error(error);
-    });
+        return response.text();
+    }catch(error){
+        throw (error);
+    }
 }
+
+function escapeHTML(unsafe){
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }
 
 const renderButton = document.getElementById("render");
 const downloadButton = document.getElementById("download");
 
 renderButton.addEventListener("click", () => {
-    return fetchParser("render");
+    fetchParser()
+    .then((data) => {
+        const containerElement = document.getElementById("converted-container");
+        const checkedRadioName = document.querySelector('input[name="flexRadio"]:checked').getAttribute("id");
+        if(checkedRadioName == "HTMLRadio"){
+            const preDOM = document.createElement("pre");
+            const codeDOM = document.createElement("code");
+            containerElement.innerHTML = "";
+            codeDOM.innerHTML = escapeHTML(data);
+            containerElement.appendChild(preDOM);
+            preDOM.appendChild(codeDOM);
+        } else {
+            containerElement.innerHTML = data;
+        }
+    });
 });
 
 downloadButton.addEventListener("click", () => {
@@ -138,6 +153,4 @@ downloadButton.addEventListener("click", () => {
     link.href = url;
     link.download = "renderedContent.html";
     link.click;
-
-    URL.revokeObjectURL(url);
 });

@@ -4,7 +4,7 @@ $Parsedown = new Parsedown();
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,25 @@ $Parsedown = new Parsedown();
 </head>
 <body>
 
-    <button id="render" type="button" class="btn btn-dark m-4">RENDER</button>
-    <button id="download" type="button" class="btn btn-primary m-4">DOWNLOAD</button>
+    <div class="d-flex justify-content-start align-items-center p-4">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadio" id="HTMLRadio">
+          <label class="form-check-label" for="HTMLRadio">
+            HTML
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadio" id="PreviewRadio" checked>
+          <label class="form-check-label" for="PreviewRadio">
+            Preview
+          </label>
+        </div>
+
+        <button id="render" type="button" class="btn btn-primary m-4">RENDER</button>
+        <button id="download" type="button" class="btn btn-primary m-4">DOWNLOAD</button>
+    </div>
 
     <div class="d-flex justify-content-center align-content-center m-3">
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
 
         <div id="editor-container" class="m-4 w-50" style="height:80vh;border:1px solid grey"></div>
 
@@ -120,9 +133,9 @@ $Parsedown = new Parsedown();
             "\n" .
             "### Superscript\n" .
             "X^2^")
-        ;?>
+            ;?>
 
-</div>
+        </div>
     </div>
 </body>
 </html>
