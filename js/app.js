@@ -4,10 +4,10 @@ require(['vs/editor/editor.main'], function() {
         value:
         "# Markdown Cheat Sheet\n" +
         "Thanks for visiting [The Markdown Guide](https://www.markdownguide.org)!\n" +
-        "This Markdown cheat sheet provides a quick overview of all the Markdown syntax elements. It can’t cover every edge case, so if you need more information about any of these elements, refer to the reference guides for [basic syntax](https://www.markdownguide.org/basic-syntax/) and [extended syntax](https://www.markdownguide.org/extended-syntax/).\n" +
+        "This Markdown cheat sheet provides a quick overview of all the Markdown syntax elements. It can't cover every edge case, so if you need more information about any of these elements, refer to the reference guides for [basic syntax](https://www.markdownguide.org/basic-syntax/) and [extended syntax](https://www.markdownguide.org/extended-syntax/).\n" +
         "\n" +
         "## Basic Syntax\n" +
-        "These are the elements outlined in John Gruber’s original design document. All Markdown applications support these elements.\n" +
+        "These are the elements outlined in John Gruber's original design document. All Markdown applications support these elements.\n" +
         "\n" +
         "### Heading\n" +
         "# H1\n" +
@@ -125,7 +125,7 @@ function escapeHTML(unsafe){
          .replace(/'/g, "&#039;");
  }
 
-function render(){
+function renderContent(){
     fetchParser()
     .then((data) => {
         const containerElement = document.getElementById("converted-container");
@@ -143,11 +143,28 @@ function render(){
     });
 };
 
-function download(){
+function downloadContent(){
     //#4 FIX ME
-    const url = fetchParser("download");
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "renderedContent.html";
-    link.click;
+    const containerElement = document.getElementById("converted-container");
+    const checkedRadioName = document.querySelector('input[name="flexRadio"]:checked').getAttribute("id");
+    let outputContent;
+    let downloadFormat = ".md";
+
+    if(checkedRadioName == "HTMLRadio"){
+        outputContent = containerElement.children[0].children[0].innerHTML;
+        downloadFormat = ".html";
+    } else {
+        outputContent = window.editor.getValue();
+    }
+    const blob = new Blob([outputContent], { type: "octet-stream"});
+    const href = URL.createObjectURL(blob);
+    const a = Object.assign(document.createElement("a"), {
+        href,
+        style: "display:none",
+        download: "download" + downloadFormat,
+    });
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(href);
+    a.remove();
 };

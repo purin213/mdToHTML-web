@@ -10,6 +10,8 @@ $Parsedown = new Parsedown();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MD to HTML</title>
     <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
+        <script src="js/app.js"></script>
 </head>
 <body>
 
@@ -28,10 +30,10 @@ $Parsedown = new Parsedown();
               </label>
             </div>
 
-            <button id="render" type="button" class="btn btn-primary m-4" onclick="render()">RENDER</button>
+            <button id="render" type="button" class="btn btn-primary m-4" onclick="renderContent()">RENDER</button>
         </div>
         <div>
-            <a href="#" id="download" type="button" class="text-decoration-none m-4" onclick="download()">
+            <a id="download" type="button" class="text-decoration-none m-4" onclick="downloadContent()" download="download.html">
                 download
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
@@ -45,8 +47,6 @@ $Parsedown = new Parsedown();
 
         <div id="editor-container" class="m-4 w-50" style="height:80vh;border:1px solid grey"></div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js"></script>
-        <script src="js/app.js"></script>
 
         <div id="converted-container" class="m-4 w-50 overflow-auto" style="height:80vh;border:1px solid grey">
 
